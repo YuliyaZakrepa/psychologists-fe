@@ -1,0 +1,70 @@
+.catalogWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-10);
+  position: relative;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-7);
+}
+.errorText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.globalLoaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-loader-background);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loaderWrapper {
+  background-color: var(--color-white);
+  padding: var(--space-8) var(--space-loader);
+  border-radius: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 543px;
+  height: 296px;
+}
+.loaderWrapper span {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  margin-top: var(--space-6);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-description);
+  line-height: var(--line-height-text);
+  text-align: center;
+}
+.loaderText {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-button);
+  text-align: center;
+}
+.catalog .loadMoreBtn{
+border: 1px solid var(--color-gray-light);
+width: 145px;
+color: var(--color-main);
+background-color: transparent;
+transition: border-color var(--transition-interactive);
+margin: 0 auto;
+;
+}
+.catalog .loadMoreBtn:hover,
+.catalog .loadMoreBtn:active,
+.catalog .loadMoreBtn:focus-visible {
+  border-color: var(--color-green-hover);
+  background-color: transparent;
+}
