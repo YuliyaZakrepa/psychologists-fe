@@ -5,71 +5,160 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  background-color: #fbfbfb;
+  background:
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(252, 131, 44, 0.1) 0%,
+      rgba(252, 131, 44, 0.1) 20%,
+      rgba(252, 131, 44, 0) 90%
+    ),
+    #fbfbfb;
+  padding: 78px 0 100px;
 }
-
-.backgroundImage {
-  transform: scale(1.23);
-  object-fit: cover;
-  object-position: 50% 80%;
-  z-index: 0;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--color-back-ground);
-}
-
 .heroContainer {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--space-hero-container);
+}
+
+.heroTextContainer {
   position: relative;
-  margin: 195px auto;
-  padding: 0 var(--space-10);
-  max-width: 1440px;
-  z-index: 5;
+  width: 595px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
 .title {
-  color: var(--color-inputs);
-  min-width: 571px;
-  margin-bottom: var(--space-4);
-  font-size: var(--font-size-title);
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-title);
+  font-size: var(--font-size-heading);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing);
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+.title span {
+  font-style: italic;
+  color: var(--color-accent);
 }
 
 .description {
-  color: var(--color-inputs);
-  margin-bottom: var(--space-7);
-  font-size: var(--font-size-description);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-regular);
   line-height: var(--line-height-text);
+  letter-spacing: var(--letter-spacing);
+  color: var(--color-text);
+  margin-bottom: var(--space-7);
+  width: 510px;
 }
 
 .link {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: var(--radius-large);
-  width: 173px;
-  height: 56px;
-  background-color: var(--color-grey-green);
+  gap: var(--space-4);
+  border-radius: var(--radius-log-reg);
+  width: 235px;
+  height: 60px;
   font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-button);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-tight);
-  color: var(--color-white);
-  cursor: pointer;
-  text-decoration: none;
+  background: var(--color-accent);
+  color: var(--color-main);
   transition: background-color var(--transition-interactive);
 }
-
-.link:hover {
-  background-color: var(--color-green-hover);
+.icon {
+  width: 14px;
+  align-self: center;
+  height: 16px;
 }
+.link:hover,
 .link:focus-visible {
-  background-color: var(--color-green-hover);
-  outline: none;
+  background-color: var(--color-accent-hover);
+}
+.heroImgContainer {
+  width: 464px;
+  height: 526px;
+  position: relative;
+}
+.heroImage {
+  width: 464px;
+  height: 526px;
+}
+.containerIconQuestion,
+.containerIconCheck,
+.containerIconUsers {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerIconQuestion {
+  border-radius: var(--radius-small);
+  width: 40px;
+  height: 40px;
+  bottom: var(--space-12);
+  background: var(--color-decor-element);
+  rotate: -15deg;
+  top: 189px;
+  left: -35px;
+}
+
+.iconQuestion {
+  width: 10px;
+  height: 17px;
+  rotate: 15deg;
+}
+.containerIconCheck {
+  border-radius: var(--radius-medium);
+  width: 311px;
+  height: 118px;
+  background: var(--color-accent);
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--space-6-7);
+  gap: var(--space-4);
+  left: -101px;
+  top: 333px;
+}
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-container);
+  width: 54px;
+  height: 54px;
+  background: #fbfbfb;
+}
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--space-3-4);
+  white-space: nowrap;
+  color: var(--color-text-container);
+}
+.textContainer span {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-description);
+  color: var(--color-main);
+}
+.containerIconUsers {
+  width: 48px;
+  height: 48px;
+  rotate: 15deg;
+  background: var(--color-element);
+  border-radius: var(--radius-small);
+  left: 455px;
+  top: var(--space-7);
+}
+.iconUsers {
+  width: 20px;
+  height: 20px;
 }

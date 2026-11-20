@@ -7,7 +7,7 @@ import {
   FormikHelpers,
 } from "formik";
 import { BookingRequestPayload } from "@/types/booking";
-import { createBookingRequest } from "@/lib/api/bookings";
+import { createBookingRequest } from "@/lib/api/auth";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import Button from "../Button/Button";

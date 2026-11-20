@@ -1,0 +1,14 @@
+.main {
+  margin-top: -96px;
+  padding-top: 96px;
+  min-height: 100vh;
+  border-bottom: 1px solid var(--color-border-bottom);
+  background:
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(252, 131, 44, 0.1) 0%,
+      rgba(252, 131, 44, 0.1) 20%,
+      rgba(252, 131, 44, 0) 90%
+    ),
+    #fbfbfb;
+}

@@ -1,0 +1,66 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(25, 26, 21, 0.6);
+  display: flex;
+  margin-block: auto;
+  justify-content: center;
+  align-items: center;
+  /* overflow-y: auto; */
+}
+.modal {
+  position: relative;
+  max-width: 565px;
+
+  border-radius: 30px;
+  background-color: #fbfbfb;
+  padding: 64px;
+  margin: auto;
+}
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.icon {
+  fill: none;
+  stroke-width: 2.5px;
+  stroke: #191a15;
+}
+.closeButton:hover .icon,
+.closeButton:focus-visible .icon {
+  stroke: var(--color-accent-hover);
+  fill: var(--color-accent-hover);
+}
+
+.closeButton:disabled {
+  opacity: 0.3;
+}
+
+/* @media screen and (min-width: 768px) {
+  .modal {
+    width: 704px;
+    max-width: 704px;
+    min-height: 530px;
+    padding: var(--space-9) var(--space-6);
+  }
+}
+@media screen and (min-width: 1440px) {
+  .modal {
+    padding: var(--space-9);
+    width: 768px;
+    max-width: 768px;
+    min-height: 553px;
+  }
+} */

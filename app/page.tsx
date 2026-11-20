@@ -1,4 +1,5 @@
 import HeroBlock from "@/components/HeroBlock/HeroBlock";
+import css from "./page.module.css";
 import { Metadata } from "next";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_IMAGE } from "@/lib/store/seo";
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main className={css.main}>
       <HeroBlock />
     </main>
   );

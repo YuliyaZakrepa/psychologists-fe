@@ -3,7 +3,7 @@ interface IconProps {
   size?: number;
   className?: string;
 }
-export default function Icon({ name, size = 16, className }: IconProps) {
+export default function Icon({ name, size, className }: IconProps) {
   return (
     <svg width={size} height={size} aria-hidden="true" className={className}>
       <use href={`/sprite.svg#${name}`} />

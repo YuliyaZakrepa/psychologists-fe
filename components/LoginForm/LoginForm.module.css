@@ -1,0 +1,113 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* .field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+} */
+
+.input {
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+  height: 52px;
+  padding: 16px 18px;
+  width: 100%;
+  line-height: 125%;
+  background-color: transparent;
+  color: #191a15;
+  cursor: text;
+}
+.input::placeholder {
+  line-height: 125%;
+  color: #191a15;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent-hover);
+}
+
+.error {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 18px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 14px;
+  color: #d93025;
+}
+
+.button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #fc832c;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.field {
+  position: relative;
+}
+.passwordInput {
+  padding-right: 52px;
+}
+
+.passwordInput::-ms-reveal {
+  display: none;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.eyeButton:focus,
+.eyeButton:focus-visible {
+  outline: none;
+}
+
+.eyeIcon {
+  stroke: #191a15;
+  fill: none;
+}
+
+.submitWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.submitWrap .error {
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.inputError,
+.inputError:focus {
+  border-color: #d93025;
+}
+.input:-webkit-autofill,
+.input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fbfbfb inset;
+  -webkit-text-fill-color: #191a15;
+}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header/Header";
 import { Suspense } from "react";
@@ -17,12 +17,6 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-family",
-  display: "swap",
-});
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-second-family",
   display: "swap",
 });
 
@@ -75,15 +69,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${inter.variable}`}>
       <body>
         <AppProviders>
           <Suspense fallback={<div style={{ height: "72px" }} />}>
             <Header />
           </Suspense>
           {children}
+          {modal}
           <Toaster position="top-right" />
         </AppProviders>
       </body>
