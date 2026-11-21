@@ -1,17 +1,36 @@
 "use client";
-import css from "./Header.module.css";
+
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { logoutUser } from "@/lib/api/auth";
+import { useAuthStore } from "@/lib/store/authStore";
+import Icon from "../Icon/Icon";
+import css from "./Header.module.css";
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, isAuthenticated, isLoading, clearUser } = useAuthStore();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } finally {
+      clearUser();
+      router.push("/");
+    }
+  };
+
   return (
     <header className={css.header}>
       <div className={`container ${css.inner}`}>
         <Link href="/" className={css.logo}>
           <span>psychologists.</span>services
         </Link>
-        <nav aria-label="Main Navigation" className={css.listNavigation}>
+        <nav
+          aria-label="Main Navigation"
+          className={`${css.listNavigation} ${!isAuthenticated ? css.listNavigationGuest : ""}`}
+        >
           <ul className={css.navGroup}>
             <li>
               <Link
@@ -31,36 +50,57 @@ export default function Header() {
                 Psychologists
               </Link>
             </li>
-            {/* <li>
+            {isAuthenticated && (
+              <li>
                 <Link
-                  href="/catalog"
+                  href="/favorites"
                   className={css.link}
-                  // data-active={pathname?.startsWith("/catalog")}
+                  data-active={pathname?.startsWith("/favorites")}
                 >
-                  Psychologists
+                  Favorites
                 </Link>
-              </li> */}
+              </li>
+            )}
           </ul>
-          <ul className={css.authGroup}>
-            <li>
-              <Link
-                href="/login"
-                className={css.linkLogin}
-                // data-active={pathname?.startsWith("/catalog")}
-              >
-                Log in
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/register"
-                className={css.linkRegistretion}
-                // data-active={pathname?.startsWith("/catalog")}
-              >
-                Registration
-              </Link>
-            </li>
-          </ul>
+
+          {!isLoading && (
+            <ul
+              className={`${css.authGroup} ${!isAuthenticated ? css.authGroupGuest : ""}`}
+            >
+              {isAuthenticated && user ? (
+                <>
+                  <li className={css.user}>
+                    <span className={css.avatar}>
+                      <Icon name="icon-user" size={24} />
+                    </span>
+                    <span className={css.userName}>{user.name}</span>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      className={css.linkLogout}
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link href="/login" className={css.linkLogin}>
+                      Log in
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/register" className={css.linkRegistretion}>
+                      Registration
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          )}
         </nav>
       </div>
     </header>

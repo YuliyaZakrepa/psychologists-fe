@@ -119,7 +119,7 @@
   border-radius: var(--radius-medium);
   width: 311px;
   height: 118px;
-  background: var(--color-accent);
+  background-color: var(--color-accent);
   flex-direction: row;
   justify-content: space-between;
   padding: var(--space-6-7);

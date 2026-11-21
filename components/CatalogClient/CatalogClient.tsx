@@ -2,8 +2,8 @@
 import css from "./CatalogClient.module.css";
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getAllCampers } from "@/lib/api/campers";
-import { CampersFilters } from "@/types/campers";
+import { getAllCampers } from "@/lib/api/users";
+import { CampersFilters } from "@/types/user";
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";

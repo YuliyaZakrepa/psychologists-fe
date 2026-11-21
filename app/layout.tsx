@@ -4,7 +4,9 @@ import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header/Header";
 import { Suspense } from "react";
 import "./globals.css";
-import AppProviders from "@/components/providers/AppProviders";
+import AppProvider from "@/components/providers/AppProvider";
+import AuthProvider from "@/components/providers/AuthProvider";
+
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -74,14 +76,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable}`}>
       <body>
-        <AppProviders>
-          <Suspense fallback={<div style={{ height: "72px" }} />}>
-            <Header />
-          </Suspense>
-          {children}
-          {modal}
+        <AppProvider>
+          <AuthProvider>
+            <Suspense fallback={<div style={{ height: "72px" }} />}>
+              <Header />
+            </Suspense>
+            {children}
+            {modal}
+          </AuthProvider>
           <Toaster position="top-right" />
-        </AppProviders>
+        </AppProvider>
       </body>
     </html>
   );

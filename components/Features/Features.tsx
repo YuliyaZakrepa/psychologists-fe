@@ -5,7 +5,7 @@ import {
   AMENITY_LABELS,
 } from "@/types/constants";
 import { CamperDetails } from "@/types/camperDetails";
-import { Camper } from "@/types/campers";
+import { Camper } from "@/types/user";
 import css from "./Features.module.css";
 
 interface FeaturesProps {

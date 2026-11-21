@@ -9,7 +9,7 @@ import {
 } from "@/types/constants";
 import css from "./FilterPanel.module.css";
 import { CamperForm, Transmission, Engine } from "@/types/filters";
-import { CampersFilters } from "@/types/campers";
+import { CampersFilters } from "@/types/user";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Icon from "../Icon/Icon";
 import Button from "../Button/Button";

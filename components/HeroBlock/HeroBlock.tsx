@@ -9,7 +9,7 @@ export default function HeroBlock() {
       <div className={`container ${css.heroContainer}`}>
         <div className={css.heroTextContainer}>
           <h1 className={css.title}>
-            The road to the <span>depths</span> of the human soul.
+            The road to the <span>depths</span> of the human soul
           </h1>
           <p className={css.description}>
             We help you to reveal your potential, overcome challenges and find a
@@ -25,6 +25,7 @@ export default function HeroBlock() {
           <Image
             src={heroImage}
             alt="Camper van parked by a river at sunset"
+            priority
             width={464}
             height={526}
             className={css.heroImage}

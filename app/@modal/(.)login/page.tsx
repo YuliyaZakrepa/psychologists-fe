@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/RegisterForm/RegisterForm";
+import LoginForm from "@/components/LoginForm/LoginForm";
 import Modal from "@/components/Modal/Modal";
 import css from "./page.module.css";
 
@@ -12,7 +12,7 @@ export default function Login() {
           continue your search for a psychologist
         </p>
       </div>
-      <RegisterForm />
+      <LoginForm />
     </Modal>
   );
 }

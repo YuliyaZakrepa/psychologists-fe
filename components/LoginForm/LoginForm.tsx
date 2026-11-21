@@ -9,6 +9,7 @@ import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { loginUser } from "@/lib/api/auth";
 import type { LoginRequest } from "@/types/auth";
+import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "../Icon/Icon";
 import css from "./LoginForm.module.css";
 
@@ -29,6 +30,7 @@ type Props = {
 
 export default function LoginForm({ onSuccess }: Props) {
   const router = useRouter();
+  const setUser = useAuthStore((s) => s.setUser);
   const [serverError, setServerError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,8 +45,8 @@ export default function LoginForm({ onSuccess }: Props) {
   const onSubmit = async (values: LoginRequest) => {
     setServerError("");
     try {
-      await loginUser(values);
-      toast.success("Registration successful!");
+      const res = await loginUser(values);
+      setUser(res.data);
 
       if (onSuccess) {
         onSuccess();
@@ -55,8 +57,8 @@ export default function LoginForm({ onSuccess }: Props) {
       if (isAxiosError(error)) {
         const message = error.response?.data?.message;
 
-        if (error.response?.status === 400 && message === "Email in use") {
-          setServerError("This email is already registered");
+        if (error.response?.status === 401) {
+          setServerError("Invalid email or password");
         } else {
           setServerError(message ?? "Something went wrong");
         }
@@ -87,7 +89,7 @@ export default function LoginForm({ onSuccess }: Props) {
           }`}
           type={showPassword ? "text" : "password"}
           placeholder="Password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           aria-invalid={!!errors.password}
           {...register("password")}
         />

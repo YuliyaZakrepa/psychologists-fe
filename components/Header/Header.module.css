@@ -11,9 +11,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 24px;
   width: 100%;
 }
+
 .logo {
+  flex-shrink: 0;
   font-size: var(--font-size-medium);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing);
@@ -21,6 +24,7 @@
   color: var(--color-text);
   padding: var(--space-2-5) 0;
 }
+
 .logo span {
   color: var(--color-accent);
   font-weight: var(--font-weight-bold);
@@ -29,24 +33,33 @@
   letter-spacing: var(--letter-spacing);
 }
 
+/* навігація займає весь вільний простір:
+   зліва меню, справа блок авторизації */
 .listNavigation {
   display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-header-nav);
+  align-items: center;
+  gap: 24px;
+  margin-left: clamp(24px, 12vw, 226px);
+  min-width: 0;
 }
+
 .navGroup,
 .authGroup {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
 }
+
 .navGroup {
   gap: var(--space-7);
 }
+
 .authGroup {
-  gap: var(--space-2);
+  flex-shrink: 0;
+  gap: 8px; /* між Log in і Registration */
 }
 
 .link {
@@ -57,12 +70,12 @@
   color: var(--color-text);
   padding: var(--space-3-4) 0;
 }
+
 .link::after {
   position: absolute;
   content: "";
   bottom: 0;
   left: 50%;
-
   transform: translateX(-50%) scale(0);
   border-radius: 100%;
   width: 8px;
@@ -73,6 +86,7 @@
     opacity var(--transition-interactive),
     transform var(--transition-interactive);
 }
+
 .link:hover::after,
 .link:focus-visible::after,
 .link[data-active="true"]::after {
@@ -80,23 +94,24 @@
   transform: translateX(-50%) scale(1);
 }
 
-.authGroup {
-  gap: var(--space-2);
-}
 .linkLogin,
-.linkRegistretion {
+.linkRegistretion,
+.linkLogout {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.linkLogin,
-.linkRegistretion {
-  border-radius: var(--radius-log-reg);
-  font-weight: var(--font-weight-medium);
   height: 48px;
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height);
   letter-spacing: var(--letter-spacing-tight);
 }
+
+.linkLogin,
+.linkRegistretion {
+  border-radius: var(--radius-log-reg);
+}
+
 .linkLogin {
   border: 1px solid var(--color-border);
   width: 124px;
@@ -110,11 +125,57 @@
   background: var(--color-accent);
   transition: background-color var(--transition-interactive);
 }
+
 .linkLogin:hover,
 .linkLogin:focus-visible {
   border-color: var(--color-accent-hover);
 }
+
 .linkRegistretion:hover,
 .linkRegistretion:focus-visible {
   background-color: var(--color-accent-hover);
+}
+
+/* залогінений користувач */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-right: 20px; /* 8px gap + 20px = 28px до Log out */
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #fc832c;
+}
+
+.userName {
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: -0.01em;
+  color: #191a15;
+  white-space: nowrap;
+}
+
+.linkLogout {
+  border: 1px solid rgba(25, 26, 21, 0.2);
+  border-radius: 30px;
+  width: 135px;
+  background-color: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: border-color var(--transition-interactive);
+}
+
+.linkLogout:hover,
+.linkLogout:focus-visible {
+  border-color: var(--color-accent-hover);
 }

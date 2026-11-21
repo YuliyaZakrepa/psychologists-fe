@@ -9,3 +9,11 @@ export async function loginUser(payload: LoginRequest) {
   const { data } = await api.post("/auth/login", payload);
   return data;
 }
+export async function checkSession() {
+  const { data } = await api.get<{ success: boolean }>("/auth/session");
+  return data.success;
+}
+
+export async function logoutUser() {
+  await api.post("/auth/logout");
+}

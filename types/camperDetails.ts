@@ -1,4 +1,4 @@
-import {CamperBase} from "./campers";
+import { CamperBase } from "./user";
 
 export interface CamperImage {
   id: string;
@@ -8,6 +8,6 @@ export interface CamperImage {
   order: number;
 }
 
-
 export interface CamperDetails extends CamperBase {
-  gallery: CamperImage[];}
+  gallery: CamperImage[];
+}

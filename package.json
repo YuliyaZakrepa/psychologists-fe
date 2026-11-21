@@ -24,7 +24,8 @@
     "react-hot-toast": "^2.6.1",
     "react-loader-spinner": "^8.0.2",
     "swiper": "^14.3.0",
-    "yup": "^1.7.1"
+    "yup": "^1.7.1",
+    "zustand": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

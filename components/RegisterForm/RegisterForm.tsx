@@ -9,6 +9,7 @@ import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { registerUser } from "@/lib/api/auth";
 import type { RegisterRequest } from "@/types/auth";
+import { useAuthStore } from "@/lib/store/authStore";
 import Icon from "../Icon/Icon";
 import css from "./RegisterForm.module.css";
 
@@ -19,7 +20,7 @@ const schema = yup.object({
     .string()
     .trim()
     .required(REQUIRED)
-    .min(3, "Minimum 2 characters")
+    .min(3, "Minimum 3 characters")
     .max(32, "Maximum 32 characters"),
   email: yup.string().trim().required(REQUIRED).email("Invalid email"),
   password: yup
@@ -35,6 +36,7 @@ type Props = {
 
 export default function RegisterForm({ onSuccess }: Props) {
   const router = useRouter();
+  const setUser = useAuthStore((s) => s.setUser);
   const [serverError, setServerError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,7 +51,8 @@ export default function RegisterForm({ onSuccess }: Props) {
   const onSubmit = async (values: RegisterRequest) => {
     setServerError("");
     try {
-      await registerUser(values);
+      const res = await registerUser(values);
+      setUser(res.data);
       toast.success("Registration successful!");
 
       if (onSuccess) {

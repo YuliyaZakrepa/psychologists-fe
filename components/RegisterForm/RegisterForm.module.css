@@ -52,9 +52,12 @@
   font-size: 16px;
   cursor: pointer;
 }
-
+.button:hover,
+.button:focus-visible {
+  background-color: var(--color-accent-hover);
+}
 .button:disabled {
-  opacity: 0.6;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 .field {

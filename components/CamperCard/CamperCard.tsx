@@ -5,7 +5,7 @@ import {
   TRANSMISSION_LABELS,
   CAMPER_FORM_LABELS,
 } from "@/types/constants";
-import { Camper } from "@/types/campers";
+import { Camper } from "@/types/user";
 import css from "./CamperCard.module.css";
 import { motion } from "framer-motion";
 import Icon from "../Icon/Icon";

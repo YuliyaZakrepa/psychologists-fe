@@ -1,5 +1,5 @@
 import css from "./CamperDescription.module.css";
-import { Camper } from "@/types/campers";
+import { Camper } from "@/types/user";
 import Icon from "../Icon/Icon";
 
 interface CamperDescriptionProps {
