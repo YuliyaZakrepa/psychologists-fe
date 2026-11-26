@@ -11,7 +11,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
   width: 100%;
 }
 
@@ -33,17 +32,17 @@
   letter-spacing: var(--letter-spacing);
 }
 
-/* навігація займає весь вільний простір:
-   зліва меню, справа блок авторизації */
 .listNavigation {
   display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
-  margin-left: clamp(24px, 12vw, 226px);
+  margin-left: 226px;
   min-width: 0;
+}
+.listNavigationGuest {
+  margin-left: 130px;
 }
 
 .navGroup,
@@ -55,13 +54,16 @@
 
 .navGroup {
   gap: var(--space-7);
+  margin-right: auto;
 }
 
 .authGroup {
   flex-shrink: 0;
-  gap: 8px; /* між Log in і Registration */
+  gap: 28px;
 }
-
+.authGroupGuest {
+  gap: 8px;
+}
 .link {
   display: block;
   position: relative;
@@ -136,12 +138,10 @@
   background-color: var(--color-accent-hover);
 }
 
-/* залогінений користувач */
 .user {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-right: 20px; /* 8px gap + 20px = 28px до Log out */
 }
 
 .avatar {
@@ -166,6 +166,7 @@
 .linkLogout {
   border: 1px solid rgba(25, 26, 21, 0.2);
   border-radius: 30px;
+  height: 48px;
   width: 135px;
   background-color: transparent;
   color: var(--color-text);

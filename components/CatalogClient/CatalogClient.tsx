@@ -1,26 +1,25 @@
 "use client";
+
 import css from "./CatalogClient.module.css";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getAllCampers } from "@/lib/api/users";
-import { CampersFilters } from "@/types/user";
+import { getAllPsychologists } from "@/lib/api/psychologists";
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
-import CamperCard from "../CamperCard/CamperCard";
+import PsychologistCard from "../PsychologistCard/PsychologistCard";
 import EmptyState from "../EmptyState/EmptyState";
 import Button from "../Button/Button";
+import { useAuthStore } from "@/lib/store/authStore";
 
-const PER_PAGE = 4;
+import { DEFAULT_FILTER, type FilterValue } from "@/types/constants";
+const PAGE_SIZE = 3;
 
 export default function CatalogClient() {
-  const [filters, setFilters] = useState<CampersFilters>({});
-  const [formKey, setFormKey] = useState(0);
+  const [filter, setFilter] = useState<FilterValue>(DEFAULT_FILTER);
+  const isAuthLoading = useAuthStore((s) => s.isLoading);
 
-  const reset = () => {
-    setFilters({});
-    setFormKey((prev) => prev + 1);
-  };
+  const reset = () => setFilter(DEFAULT_FILTER);
 
   const {
     data,
@@ -31,56 +30,61 @@ export default function CatalogClient() {
     isError,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ["campers", filters],
+    queryKey: ["psychologists", filter],
     queryFn: ({ pageParam }) =>
-      getAllCampers({ ...filters, page: pageParam, perPage: PER_PAGE }),
+      getAllPsychologists({ filter, page: pageParam, perPage: PAGE_SIZE }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
+    getNextPageParam: ({ pagination }) =>
+      pagination.hasNextPage ? pagination.page + 1 : undefined,
     retry: 1,
   });
 
-  const campers = data?.pages.flatMap((page) => page.campers) ?? [];
+  const psychologists = useMemo(
+    () => data?.pages.flatMap((page) => page.data) ?? [],
+    [data]
+  );
 
   return (
     <div className={css.catalogWrapper}>
-      <FilterPanel key={formKey} onSearch={setFilters} />
+      <FilterPanel value={filter} onChange={setFilter} />
 
       <div className={css.catalog}>
-        {isPending && (
+        {(isPending || isAuthLoading) && (
           <div className={css.globalLoaderOverlay}>
             <div className={css.loaderWrapper} role="status">
               <Loader />
-              <span>Loading tracks...</span>
+              <span>Loading psychologists...</span>
               <p className={css.loaderText}>
-                Please wait while we fetch the best travel trucks for you
+                Please wait while we find the best specialists for you
               </p>
             </div>
           </div>
         )}
 
-        {isError && campers.length === 0 && (
+        {isError && psychologists.length === 0 && (
           <div className={css.errorText}>
             <ErrorMessage
-              message="Could not load catalog."
+              message="Could not load psychologists."
               onRetry={() => refetch()}
             />
           </div>
         )}
-        {isError && campers.length > 0 && (
+        {isError && psychologists.length > 0 && (
           <ErrorMessage
-            message="Could not load more campers."
+            message="Could not load more psychologists."
             onRetry={() => fetchNextPage()}
           />
         )}
-        {!isPending && !isError && campers.length === 0 && (
+        {!isPending && !isError && psychologists.length === 0 && (
           <EmptyState onReset={reset} />
         )}
-
-        {campers.length > 0 && (
+        {!isAuthLoading && psychologists.length > 0 && (
           <ul className={css.list}>
-            {campers.map((camper) => (
-              <CamperCard key={camper.id} camper={camper} />
+            {psychologists.map((psychologist) => (
+              <PsychologistCard
+                key={psychologist.id}
+                psychologist={psychologist}
+              />
             ))}
           </ul>
         )}
@@ -92,7 +96,7 @@ export default function CatalogClient() {
             disabled={isFetchingNextPage}
             className={css.loadMoreBtn}
           >
-            {isFetchingNextPage ? "Loading..." : "Load More"}
+            {isFetchingNextPage ? "Loading..." : "Load more"}
           </Button>
         )}
       </div>

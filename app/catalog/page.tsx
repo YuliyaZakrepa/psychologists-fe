@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { getFilters } from "@/lib/api/filters";
+import { getFilters } from "@/lib/api/psychologists";
 import CatalogClient from "@/components/CatalogClient/CatalogClient";
 import { SITE_NAME, SITE_TITLE } from "@/lib/store/seo";
 import { buildMetadata } from "@/lib/store/seo";

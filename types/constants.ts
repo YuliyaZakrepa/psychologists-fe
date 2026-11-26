@@ -1,31 +1,12 @@
-import { CamperForm, Transmission, Engine } from "./filters";
-import { type Amenity } from "./user";
-export const CAMPER_FORM_LABELS: Record<CamperForm, string> = {
-  alcove: "Alcove",
-  panel_van: "Panel Van",
-  integrated: "Integrated",
-  semi_integrated: "Semi Integrated",
-};
+export const FILTERS = [
+  { value: "a_to_z", label: "A to Z" },
+  { value: "z_to_a", label: "Z to A" },
+  { value: "less_than_100", label: "Less than 100$" },
+  { value: "greater_than_100", label: "Greater than 100$" },
+  { value: "popular", label: "Popular" },
+  { value: "not_popular", label: "Not popular" },
+  { value: "show_all", label: "Show all" },
+] as const;
 
-export const TRANSMISSION_LABELS: Record<Transmission, string> = {
-  automatic: "Automatic",
-  manual: "Manual",
-};
-
-export const ENGINE_LABELS: Record<Engine, string> = {
-  diesel: "Diesel",
-  petrol: "Petrol",
-  hybrid: "Hybrid",
-  electric: "Electric",
-};
-export const AMENITY_LABELS: Record<Amenity, string> = {
-  ac: "AC",
-  bathroom: "Bathroom",
-  kitchen: "Kitchen",
-  tv: "TV",
-  radio: "Radio",
-  refrigerator: "Refrigerator",
-  microwave: "Microwave",
-  gas: "Gas",
-  water: "Water",
-};
+export type FilterValue = (typeof FILTERS)[number]["value"];
+export const DEFAULT_FILTER: FilterValue = "a_to_z";

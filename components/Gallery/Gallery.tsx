@@ -7,7 +7,7 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
-import { CamperImage } from "@/types/camperDetails";
+import { CamperImage } from "@/types/psychologist";
 import css from "./Gallery.module.css";
 
 interface GalleryProps {

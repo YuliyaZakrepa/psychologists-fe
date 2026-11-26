@@ -33,11 +33,7 @@ export default function Header() {
         >
           <ul className={css.navGroup}>
             <li>
-              <Link
-                href="/"
-                className={css.link}
-                // data-active={pathname === "/"}
-              >
+              <Link href="/" className={css.link}>
                 Home
               </Link>
             </li>

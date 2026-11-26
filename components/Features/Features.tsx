@@ -4,7 +4,7 @@ import {
   CAMPER_FORM_LABELS,
   AMENITY_LABELS,
 } from "@/types/constants";
-import { CamperDetails } from "@/types/camperDetails";
+import { CamperDetails } from "@/types/psychologist";
 import { Camper } from "@/types/user";
 import css from "./Features.module.css";
 
