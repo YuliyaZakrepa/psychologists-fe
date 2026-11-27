@@ -12,6 +12,8 @@ import { useState } from "react";
 
 interface PsychologistCardProps {
   psychologist: Psychologist;
+  className?: string;
+  children?: React.ReactNode;
 }
 const readIds = (storageKey: string): string[] => {
   try {
@@ -23,6 +25,8 @@ const readIds = (storageKey: string): string[] => {
 
 export default function PsychologistCard({
   psychologist,
+  className,
+  children,
 }: PsychologistCardProps) {
   const {
     id,
@@ -57,7 +61,7 @@ export default function PsychologistCard({
     setIsFavorite(next.includes(id));
   };
   return (
-    <motion.li className={css.card}>
+    <motion.li className={`${css.card} ${className ?? ""}`}>
       <div className={css.avatarWrap}>
         <Image
           className={css.avatar}
@@ -119,9 +123,10 @@ export default function PsychologistCard({
 
         <p className={css.about}>{about}</p>
 
-        <Link href={`/catalog/${id}`} className={css.readMore}>
+        <Link href={`/psychologists/${id}`} className={css.readMore}>
           Read more
         </Link>
+        {children}
       </div>
     </motion.li>
   );

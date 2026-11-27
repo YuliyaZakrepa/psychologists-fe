@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   gap: 24px;
-  padding: 24px;
+  padding: var(--card-padding, 24px);
   border-radius: 24px;
   background-color: #fbfbfb;
   margin-top: 32px;
@@ -154,8 +154,8 @@
   margin-bottom: 14px;
 }
 .readMore {
+  display: block;
   font-weight: 500;
-
   line-height: 150%;
   text-decoration: underline;
   text-decoration-skip-ink: none;

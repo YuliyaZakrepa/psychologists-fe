@@ -1,0 +1,64 @@
+.wrapper {
+  border-radius: 24px;
+  background: #fbfbfb;
+  padding: 24px;
+}
+.reviews {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.letter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  width: 44px;
+  height: 44px;
+  background: rgba(252, 131, 44, 0.2);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  color: #fc832c;
+}
+.rating {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  color: #191a15;
+}
+.nameReviewer {
+  font-weight: 500;
+  line-height: 125%;
+  color: #191a15;
+}
+.reviewComment {
+  line-height: 125%;
+  color: rgba(25, 26, 21, 0.5);
+  margin-top: 16px;
+}
+.contactFormBtn {
+  font-weight: 500;
+  line-height: 125%;
+  letter-spacing: -0.01em;
+  color: #fbfbfb;
+  --width-button: 227px;
+  height: 48px;
+}
+.list .psychologistCard {
+  --card-padding: 0;
+  margin-top: 0;
+}
+.psychologistCard a[href^="/psychologists/"] {
+  display: none;
+}

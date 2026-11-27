@@ -10,3 +10,9 @@ export const FILTERS = [
 
 export type FilterValue = (typeof FILTERS)[number]["value"];
 export const DEFAULT_FILTER: FilterValue = "a_to_z";
+
+export const TIME_SLOTS = Array.from({ length: 19 }, (_, i) => {
+  const hours = String(9 + Math.floor(i / 2)).padStart(2, "09");
+  const minutes = i % 2 === 0 ? "00" : "30";
+  return `${hours}:${minutes}`;
+});

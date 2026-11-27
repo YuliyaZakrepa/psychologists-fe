@@ -1,5 +1,5 @@
 import { Review } from "./review";
-import type { FilterValue } from "@/components/FilterPanel/FilterPanel";
+import type { FilterValue } from "@/types/constants";
 export interface Psychologist {
   id: string;
   name: string;

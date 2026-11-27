@@ -1,158 +1,173 @@
 "use client";
-import {
-  Formik,
-  Form,
-  useField,
-  useFormikContext,
-  FormikHelpers,
-} from "formik";
-import { BookingRequestPayload } from "@/types/booking";
-import { createBookingRequest } from "@/lib/api/auth";
-import { useMutation } from "@tanstack/react-query";
+import { TIME_SLOTS } from "@/types/constants";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Image from "next/image";
 import Button from "../Button/Button";
-import * as Yup from "yup";
+import { Psychologist } from "@/types/psychologist";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import css from "./ContactForm.module.css";
 
-interface ContactFormProps {
-  camperId: string;
-}
-
-interface FormValues {
-  name: string;
-  email: string;
-}
-
-const initialValues: FormValues = { name: "", email: "" };
-
-const validationSchema = Yup.object({
-  name: Yup.string()
+const schema = yup.object({
+  name: yup
+    .string()
     .trim()
-    .matches(/^[^0-9]+$/, "Please enter your name.")
-    .required("Please enter your name."),
-  email: Yup.string()
+    .min(2, "Name must be at least 2 characters")
+    .required("Name is required"),
+  phone: yup
+    .string()
+    .matches(/^\+380\d{9}$/, "Enter phone in format +380XXXXXXXXX")
+    .required("Phone is required"),
+  time: yup.string().required("Choose meeting time"),
+  email: yup
+    .string()
     .trim()
-    .email("Please enter your email.")
-    .required("Please enter your email."),
+    .email("Enter a valid email")
+    .required("Email is required"),
+  comment: yup
+    .string()
+    .trim()
+    .min(5, "Comment must be at least 5 characters")
+    .required("Comment is required"),
 });
 
-interface TextFieldProps {
-  name: keyof FormValues;
-  placeholder: string;
-  type?: string;
-  autoComplete?: string;
+type FormValues = yup.InferType<typeof schema>;
+
+interface ContactFormProps {
+  psychologist: Psychologist;
+  onSuccess?: () => void;
 }
 
-function TextField({
-  name,
-  placeholder,
-  type = "text",
-  autoComplete,
-}: TextFieldProps) {
-  const { submitCount } = useFormikContext();
-  const [field, meta] = useField(name);
-  const hasError =
-    Boolean(meta.error) &&
-    (submitCount > 0 || (meta.touched && field.value !== ""));
-  const id = `booking-${name}`;
-
-  return (
-    <div className={css.field}>
-      <input
-        {...field}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        aria-invalid={hasError}
-        aria-describedby={hasError ? `${id}-error` : undefined}
-        className={`${css.input} ${hasError ? css.inputError : ""}`}
-      />
-
-      {hasError && (
-        <>
-          <label htmlFor={id} className={css.floatingLabel}>
-            {placeholder}
-          </label>
-          <svg
-            className={css.errorIcon}
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 7v6M12 16.5v.01" />
-          </svg>
-          <p id={`${id}-error`} className={css.errorText} role="alert">
-            {meta.error}
-          </p>
-        </>
-      )}
-    </div>
-  );
-}
-
-export default function ContacForm({ camperId }: ContactFormProps) {
-  const { mutateAsync } = useMutation({
-    mutationFn: (payload: BookingRequestPayload) =>
-      createBookingRequest(camperId, payload),
-    onSuccess: () => {
-      toast.success("Your booking request was sent successfully!");
-    },
-    onError: () => {
-      toast.error("Something went wrong. Please try again.");
+export default function ContactForm({
+  psychologist,
+  onSuccess,
+}: ContactFormProps) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      phone: "+380",
+      time: "",
+      email: "",
+      comment: "",
     },
   });
 
-  const handleSubmit = async (
-    values: FormValues,
-    { resetForm }: FormikHelpers<FormValues>
-  ) => {
+  const onSubmit = async (values: FormValues) => {
     try {
-      await mutateAsync({
-        name: values.name.trim(),
-        email: values.email.trim(),
-      });
-      resetForm();
-    } catch {}
+      console.log({ psychologistId: psychologist.id, ...values });
+
+      toast.success("Your appointment request has been sent");
+      reset();
+      onSuccess?.();
+    } catch {
+      toast.error("Something went wrong. Please try again");
+    }
   };
 
   return (
     <div className={css.wrapper}>
-      <h3 className={css.title}>Book your campervan now</h3>
-      <p className={css.subtitle}>
-        Stay connected! We are always ready to help you.
+      <h2 className={css.title}>Make an appointment with a psychologists</h2>
+      <p className={css.text}>
+        You are on the verge of changing your life for the better. Fill out the
+        short form below to book your personal appointment with a professional
+        psychologist. We guarantee confidentiality and respect for your privacy.
       </p>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form className={css.form} noValidate>
-            <TextField name="name" placeholder="Name*" autoComplete="name" />
-            <TextField
-              name="email"
-              type="email"
-              placeholder="Email*"
-              autoComplete="email"
+      <div className={css.doctor}>
+        <Image
+          className={css.avatar}
+          src={psychologist.avatar_url}
+          alt={psychologist.name}
+          width={44}
+          height={44}
+        />
+        <div>
+          <p className={css.doctorLabel}>Your psychologists</p>
+          <p className={css.doctorName}>{psychologist.name}</p>
+        </div>
+      </div>
+
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+        <div className={css.field}>
+          <input
+            className={css.input}
+            type="text"
+            placeholder="Name"
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            {...register("name")}
+          />
+          {errors.name && <p className={css.error}>{errors.name.message}</p>}
+        </div>
+
+        <div className={css.row}>
+          <div className={css.field}>
+            <input
+              className={css.input}
+              type="tel"
+              placeholder="+380"
+              autoComplete="tel"
+              aria-invalid={!!errors.phone}
+              {...register("phone")}
             />
-            <Button
-              type="submit"
-              className={css.submitButton}
-              disabled={isSubmitting}
+            {errors.phone && (
+              <p className={css.error}>{errors.phone.message}</p>
+            )}
+          </div>
+
+          <div className={css.field}>
+            <select
+              className={css.input}
+              aria-invalid={!!errors.time}
+              {...register("time")}
             >
-              Send
-            </Button>
-          </Form>
-        )}
-      </Formik>
+              <option value=""> Meeting time</option>
+              {TIME_SLOTS.map((slot) => (
+                <option key={slot} value={slot}>
+                  {slot}
+                </option>
+              ))}
+            </select>
+            {errors.time && <p className={css.error}>{errors.time.message}</p>}
+          </div>
+        </div>
+
+        <div className={css.field}>
+          <input
+            className={css.input}
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            {...register("email")}
+          />
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
+        </div>
+
+        <div className={css.field}>
+          <textarea
+            className={`${css.input} ${css.textarea}`}
+            placeholder="Comment"
+            aria-invalid={!!errors.comment}
+            {...register("comment")}
+          />
+          {errors.comment && (
+            <p className={css.error}>{errors.comment.message}</p>
+          )}
+        </div>
+
+        <Button className={css.submit} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : "Send"}
+        </Button>
+      </form>
     </div>
   );
 }
